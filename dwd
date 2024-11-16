@@ -1,0 +1,11 @@
+### script to disable window defender 
+@echo off
+:: Disable Windows Defender Real-time Protection
+powershell Set-MpPreference -DisableRealtimeMonitoring $true
+:: Disable Windows Defender permanently (requires admin privileges)
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "DisableAntiSpyware" /t REG_DWORD /d "1" /f
+:: Disable Windows Defender Service
+sc stop WinDefend
+sc config WinDefend start= disabled
+echo Windows Defender has been disabled.
+pause
